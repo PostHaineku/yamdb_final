@@ -53,7 +53,7 @@ class Review(models.Model):
 
     text = models.TextField(verbose_name="Текст ревью")
     pub_date = models.DateTimeField(
-        verbose_name="Дата публикации", auto_now_add=True
+        verbose_name="Дата публикации", auto_now_add=True,
     )
 
     score = models.SmallIntegerField(
