@@ -38,8 +38,10 @@ jobs:
       - name: Push to Docker Hub
         uses: docker/build-push-action@v2 
         with:
-          push: true
-          tags: posthaineku/posthaineku:latest
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: posthaineku/posthaineku
+          tag_with_ref: true
 
   deploy:
     runs-on: ubuntu-latest
