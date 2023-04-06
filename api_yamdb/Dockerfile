@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY requirements.txt /app
 
+RUN chmod +x install.sh
+
 RUN pip3 install -r /app/requirements.txt --no-cache-dir
 
 COPY . /app
