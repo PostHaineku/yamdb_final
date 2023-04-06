@@ -13,6 +13,8 @@ from rest_framework.response import Response
 from rest_framework.serializers import ValidationError
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
+from reviews.models import Category, Genre, Review, Title
+from users.models import User
 
 from .filters import TitleFilter
 from .permissions import IsAdminUserOrReadOnly, IsOwnerOrStaffOrReadOnly
@@ -21,8 +23,6 @@ from .serializers import (CategorySerializer, CommentSerializer,
                           TitleGetSerializers, TitlePutPostPatchSerializers,
                           UserObtainTokenSerializer,
                           UserRegistrationSerializer, UserSerializer)
-from reviews.models import Category, Genre, Review, Title
-from users.models import User
 
 
 class CategoryViewSet(
@@ -90,8 +90,7 @@ class TitleViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.request.method == "GET":
             return TitleGetSerializers
-        else:
-            return TitlePutPostPatchSerializers
+        return TitlePutPostPatchSerializers
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
@@ -186,10 +185,9 @@ class UserTokenObtainView(APIView):
             return Response(
                 {"token": str(refresh.access_token)}, status.HTTP_200_OK
             )
-        else:
-            return Response(
-                "Код активации не верный!", status.HTTP_400_BAD_REQUEST
-            )
+        return Response(
+            "Код активации не верный!", status.HTTP_400_BAD_REQUEST
+        )
 
 
 class UserViewSet(viewsets.ModelViewSet):
